@@ -6,137 +6,44 @@
 <title>SiteBuster</title>
 <style>
   * { margin:0; padding:0; box-sizing:border-box; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;}
-  html, body {
-    width:100%;
-    height:100%;
-    background:#000;
-    overflow:hidden;
-    color:white;
-  }
-  body {
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    align-items:center;
-  }
-  .container {
-    text-align:center;
-    position:relative;
-    z-index:10;
-    max-width:900px;
-    padding:0 20px;
-  }
-  h1 {
-    font-size:6rem;
-    color:white;
-    text-shadow:0 0 5px white,0 0 10px #fff;
-    animation: float 3s ease-in-out infinite;
-    position:relative;
-    z-index:2;
-  }
-  strong {
-    text-shadow:0 0 5px white,0 0 10px #fff;
-  }
-  @keyframes float {
-    0%,100%{transform:translateY(0);}
-    50%{transform:translateY(-15px);}
-  }
-  .description {
-    margin-top:20px;
-    font-size:1.2rem;
-    color: rgba(255,255,255,0.9);
-    text-shadow: 0 0 2px rgba(255,255,255,0.4);
-  }
-  .buttons {
-    margin-top:40px;
-    display:flex;
-    gap:20px;
-    justify-content:center;
-    flex-wrap:wrap;
-    position:relative;
-    z-index:2;
-  }
-  .buttons button {
-    padding:15px 30px;
-    font-size:1.2rem;
-    border:2px solid white;
-    background:transparent;
-    color:white;
-    cursor:pointer;
-    border-radius:10px;
-    transition: all 0.3s ease, box-shadow 0.3s ease;
-    position:relative;
-    min-width:180px;
-  }
-  .buttons button:hover {
-    background:white;
-    color:black;
-    box-shadow: 0 0 10px rgba(255,255,255,0.6);
-  }
-  @media(max-width:768px){
-    h1{font-size:4rem;}
-    .buttons button{padding:12px 20px; font-size:1rem; min-width:150px;}
-    .description {font-size:1rem;}
-  }
-  /* Background waves */
-  .waves {
-    position:absolute;
-    width:200%;
-    height:400px;
-    top:50%;
-    left:50%;
-    transform:translate(-50%, -50%);
-    overflow:hidden;
-    z-index:1;
-  }
+  html, body { width:100%; height:100%; background:#000; overflow:hidden; color:white; }
+  body { display:flex; flex-direction:column; justify-content:center; align-items:center; }
+  .container { text-align:center; position:relative; z-index:10; max-width:900px; padding:0 20px; }
+  h1 { font-size:6rem; color:white; text-shadow:0 0 5px white,0 0 10px #fff; animation: float 3s ease-in-out infinite; position:relative; z-index:2; }
+  strong { text-shadow:0 0 5px white,0 0 10px #fff; }
+  @keyframes float { 0%,100%{transform:translateY(0);} 50%{transform:translateY(-15px);} }
+  .description { margin-top:20px; font-size:1.2rem; color: rgba(255,255,255,0.9); text-shadow: 0 0 2px rgba(255,255,255,0.4); }
+  .buttons { margin-top:40px; display:flex; gap:20px; justify-content:center; flex-wrap:wrap; position:relative; z-index:2; }
+  .buttons button { padding:15px 30px; font-size:1.2rem; border:2px solid white; background:transparent; color:white; cursor:pointer; border-radius:10px; transition: all 0.3s ease, box-shadow 0.3s ease; position:relative; min-width:180px; }
+  .buttons button:hover { background:white; color:black; box-shadow: 0 0 10px rgba(255,255,255,0.6); }
+  @media(max-width:768px){ h1{font-size:4rem;} .buttons button{padding:12px 20px; font-size:1rem; min-width:150px;} .description {font-size:1rem;} }
+  .waves { position:absolute; width:200%; height:400px; top:50%; left:50%; transform:translate(-50%, -50%); overflow:hidden; z-index:1; }
   .waves svg { width:100%; height:100%; }
-  .wave {
-    animation: waveHorizontal 12s linear infinite, waveVertical 6s ease-in-out infinite alternate;
-    transform-origin:center;
-  }
+  .wave { animation: waveHorizontal 12s linear infinite, waveVertical 6s ease-in-out infinite alternate; transform-origin:center; }
   .wave:nth-child(2){ animation-duration:16s,7s; opacity:0.6;}
   .wave:nth-child(3){ animation-duration:20s,8s; opacity:0.4;}
   .wave:nth-child(4){ animation-duration:25s,9s; opacity:0.3;}
   .wave:nth-child(5){ animation-duration:30s,10s; opacity:0.2;}
   @keyframes waveHorizontal { 0%{transform:translateX(0);} 100%{transform:translateX(-50%);} }
   @keyframes waveVertical { 0%{transform:translateY(0);} 100%{transform:translateY(20px);} }
-  /* Floating particles */
   .particles { position:absolute; width:100%; height:100%; top:0; left:0; pointer-events:none; z-index:0; }
   .particle { position:absolute; width:2px; height:2px; background:white; opacity:0.3; border-radius:50%; animation: floatParticle linear infinite; }
   @keyframes floatParticle { 0%{ transform: translateY(0) translateX(0);} 100%{ transform: translateY(-800px) translateX(50px);} }
-  /* Background enhancements */
   .background-shadow { position:absolute; width:100%; height:200%; bottom:-50%; left:0; background: radial-gradient(circle at center, rgba(255,255,255,0.02), transparent 70%); z-index:0; }
   footer { position:absolute; bottom:10px; width:100%; text-align:center; font-size:0.8rem; color:rgba(255,255,255,0.7); text-shadow:0 0 2px rgba(255,255,255,0.3); z-index:2; }
 </style>
 </head>
 <body>
-  <!-- Background enhancements -->
   <div class="background-shadow"></div>
 
-  <!-- Waves -->
   <div class="waves">
     <svg viewBox="0 0 1200 400" preserveAspectRatio="none">
       <defs>
-        <linearGradient id="grad1" x1="0%" y1="0%" x2="0%" y2="100%">
-          <stop offset="0%" style="stop-color:white;stop-opacity:0.15"/>
-          <stop offset="100%" style="stop-color:white;stop-opacity:0.05"/>
-        </linearGradient>
-        <linearGradient id="grad2" x1="0%" y1="0%" x2="0%" y2="100%">
-          <stop offset="0%" style="stop-color:white;stop-opacity:0.12"/>
-          <stop offset="100%" style="stop-color:white;stop-opacity:0.04"/>
-        </linearGradient>
-        <linearGradient id="grad3" x1="0%" y1="0%" x2="0%" y2="100%">
-          <stop offset="0%" style="stop-color:white;stop-opacity:0.1"/>
-          <stop offset="100%" style="stop-color:white;stop-opacity:0.03"/>
-        </linearGradient>
-        <linearGradient id="grad4" x1="0%" y1="0%" x2="0%" y2="100%">
-          <stop offset="0%" style="stop-color:white;stop-opacity:0.08"/>
-          <stop offset="100%" style="stop-color:white;stop-opacity:0.02"/>
-        </linearGradient>
-        <linearGradient id="grad5" x1="0%" y1="0%" x2="0%" y2="100%">
-          <stop offset="0%" style="stop-color:white;stop-opacity:0.06"/>
-          <stop offset="100%" style="stop-color:white;stop-opacity:0.01"/>
-        </linearGradient>
+        <linearGradient id="grad1" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" style="stop-color:white;stop-opacity:0.15"/><stop offset="100%" style="stop-color:white;stop-opacity:0.05"/></linearGradient>
+        <linearGradient id="grad2" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" style="stop-color:white;stop-opacity:0.12"/><stop offset="100%" style="stop-color:white;stop-opacity:0.04"/></linearGradient>
+        <linearGradient id="grad3" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" style="stop-color:white;stop-opacity:0.1"/><stop offset="100%" style="stop-color:white;stop-opacity:0.03"/></linearGradient>
+        <linearGradient id="grad4" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" style="stop-color:white;stop-opacity:0.08"/><stop offset="100%" style="stop-color:white;stop-opacity:0.02"/></linearGradient>
+        <linearGradient id="grad5" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" style="stop-color:white;stop-opacity:0.06"/><stop offset="100%" style="stop-color:white;stop-opacity:0.01"/></linearGradient>
       </defs>
       <path class="wave" d="M0 200 C 150 160 300 240 450 200 S 750 160 900 200 S 1200 240 1350 200 V400 H0 Z" fill="url(#grad1)"></path>
       <path class="wave" d="M0 210 C 150 170 300 250 450 210 S 750 170 900 210 S 1200 250 1350 210 V400 H0 Z" fill="url(#grad2)"></path>
@@ -146,7 +53,6 @@
     </svg>
   </div>
 
-  <!-- Particles -->
   <div class="particles">
     <script>
       for(let i=0;i<50;i++){
@@ -168,11 +74,9 @@
     <div class="buttons" id="buttonContainer"></div>
   </div>
 
-  <footer>© 2025 SiteBuster. All rights reserved.</footer>
+  <footer>© 2025 SiteBuster. All rights reserved.<br>Site Creator: Jackson</footer>
 
-  <!-- Buttons Script -->
   <script>
-    // Define your buttons here - easy to add/remove links
     const links = [
       { label:"Some-Stuff.com", url:"https://math.sillygoose12.org/" },
       { label:"Syces Game Shack", url:"https://ccscience.netlify.app/" },
@@ -183,17 +87,13 @@
     ];
 
     const container = document.getElementById("buttonContainer");
-    let currentPopup = null;
 
     links.forEach(link => {
       const btn = document.createElement("button");
       btn.textContent = link.label;
 
       btn.addEventListener("click", () => {
-        if(currentPopup && !currentPopup.closed) currentPopup.close();
-
         const win = window.open("about:blank", "_blank");
-        currentPopup = win;
 
         const doc = win.document;
         doc.write(`
@@ -203,35 +103,33 @@
             <meta charset="UTF-8">
             <title>Loading...</title>
             <style>
-              html, body {
-                margin:0; padding:0; width:100%; height:100%; overflow:hidden; background:#000;
-              }
-              iframe {
-                position:fixed; top:0; left:0; width:100vw; height:100vh; border:none;
-              }
+              html, body { margin:0; padding:0; width:100%; height:100%; overflow:hidden; background:#000; }
+              iframe { position:fixed; top:0; left:0; width:100vw; height:100vh; border:none; }
             </style>
           </head>
           <body>
-            <iframe src="${link.url}" allowfullscreen allow="pointer-lock"></iframe>
+            <iframe id="iframe" src="${link.url}" allowfullscreen allow="pointer-lock"></iframe>
           </body>
           </html>
         `);
         doc.close();
 
-        setTimeout(() => {
+        // Set favicon reliably using iframe onload
+        const iframe = doc.getElementById("iframe");
+        const setFavicon = () => {
           try {
-            win.document.title = "Home - Google Drive";
-            const favicon = win.document.createElement("link");
+            const favicon = doc.createElement("link");
             favicon.rel = "icon";
             favicon.type = "image/png";
             favicon.href = "https://ssl.gstatic.com/docs/doclist/images/drive_2022q3_32dp.png";
-            win.document.head.appendChild(favicon);
-          } catch(e){ console.warn("Blocked:", e); }
-        }, 300);
+            doc.head.appendChild(favicon);
+          } catch(e){ console.warn("Favicon blocked", e);}
+        };
+
+        // Try immediately and on iframe load
+        setFavicon();
+        iframe.onload = () => setFavicon();
+        setTimeout(() => setFavicon(), 500);
       });
 
-      container.appendChild(btn);
-    });
-  </script>
-</body>
-</html>
+     
