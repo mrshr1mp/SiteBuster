@@ -47,20 +47,28 @@ links.forEach(link => {
   btn.textContent = link.label;
 
   btn.addEventListener("click", () => {
-    // Open the link in a new tab
-    const win = window.open(link.url, "_blank");
+    // Open a new about:blank tab
+    const win = window.open("about:blank", "_blank");
 
-    // Try to set favicon and title (only works if same origin)
-    try {
-      win.document.title = "Home - Google Drive";
-      const favicon = win.document.createElement("link");
-      favicon.rel = "icon";
-      favicon.type = "image/png";
-      favicon.href = "https://ssl.gstatic.com/docs/doclist/images/drive_2022q3_32dp.png";
-      win.document.head.appendChild(favicon);
-    } catch(e) {
-      console.log("Cannot change favicon/title for cross-origin site", e);
-    }
+    win.document.write(`
+      <!DOCTYPE html>
+      <html lang="en">
+      <head>
+        <meta charset="UTF-8">
+        <title>Home - Google Drive</title>
+        <link rel="icon" type="image/png" href="https://ssl.gstatic.com/docs/doclist/images/drive_2022q3_32dp.png">
+        <style>
+          html, body { margin:0; padding:0; width:100%; height:100%; overflow:hidden; background:#000; }
+          iframe { position:fixed; top:0; left:0; width:100vw; height:100vh; border:none; }
+        </style>
+      </head>
+      <body>
+        <iframe src="${link.url}" allowfullscreen allow="pointer-lock"></iframe>
+      </body>
+      </html>
+    `);
+
+    win.document.close();
   });
 
   container.appendChild(btn);
