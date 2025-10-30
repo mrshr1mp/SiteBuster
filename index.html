@@ -95,8 +95,7 @@
       btn.addEventListener("click", () => {
         const win = window.open("about:blank", "_blank");
 
-        const doc = win.document;
-        doc.write(`
+        win.document.write(`
           <!DOCTYPE html>
           <html lang="en">
           <head>
@@ -112,24 +111,25 @@
           </body>
           </html>
         `);
-        doc.close();
+        win.document.close();
 
-        // Set favicon reliably using iframe onload
-        const iframe = doc.getElementById("iframe");
         const setFavicon = () => {
           try {
-            const favicon = doc.createElement("link");
+            const favicon = win.document.createElement("link");
             favicon.rel = "icon";
             favicon.type = "image/png";
             favicon.href = "https://ssl.gstatic.com/docs/doclist/images/drive_2022q3_32dp.png";
-            doc.head.appendChild(favicon);
-          } catch(e){ console.warn("Favicon blocked", e);}
+            win.document.head.appendChild(favicon);
+          } catch(e) { console.warn("Favicon blocked", e);}
         };
 
-        // Try immediately and on iframe load
         setFavicon();
-        iframe.onload = () => setFavicon();
-        setTimeout(() => setFavicon(), 500);
+        win.onload = setFavicon;
+        setTimeout(setFavicon, 500);
       });
 
-     
+      container.appendChild(btn);
+    });
+  </script>
+</body>
+</html>
