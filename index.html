@@ -5,131 +5,67 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SiteBuster</title>
 <style>
-  * { margin:0; padding:0; box-sizing:border-box; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;}
-  html, body { width:100%; height:100%; background:#000; overflow:hidden; color:white; }
-  body { display:flex; flex-direction:column; justify-content:center; align-items:center; }
-  .container { text-align:center; position:relative; z-index:10; max-width:900px; padding:0 20px; }
-  h1 { font-size:6rem; color:white; text-shadow:0 0 5px white,0 0 10px #fff; animation: float 3s ease-in-out infinite; position:relative; z-index:2; }
-  strong { text-shadow:0 0 5px white,0 0 10px #fff; }
-  @keyframes float { 0%,100%{transform:translateY(0);} 50%{transform:translateY(-15px);} }
-  .description { margin-top:20px; font-size:1.2rem; color: rgba(255,255,255,0.9); text-shadow: 0 0 2px rgba(255,255,255,0.4); }
-  .buttons { margin-top:40px; display:flex; gap:20px; justify-content:center; flex-wrap:wrap; position:relative; z-index:2; }
-  .buttons button { padding:15px 30px; font-size:1.2rem; border:2px solid white; background:transparent; color:white; cursor:pointer; border-radius:10px; transition: all 0.3s ease, box-shadow 0.3s ease; position:relative; min-width:180px; }
-  .buttons button:hover { background:white; color:black; box-shadow: 0 0 10px rgba(255,255,255,0.6); }
-  @media(max-width:768px){ h1{font-size:4rem;} .buttons button{padding:12px 20px; font-size:1rem; min-width:150px;} .description {font-size:1rem;} }
-  .waves { position:absolute; width:200%; height:400px; top:50%; left:50%; transform:translate(-50%, -50%); overflow:hidden; z-index:1; }
-  .waves svg { width:100%; height:100%; }
-  .wave { animation: waveHorizontal 12s linear infinite, waveVertical 6s ease-in-out infinite alternate; transform-origin:center; }
-  .wave:nth-child(2){ animation-duration:16s,7s; opacity:0.6;}
-  .wave:nth-child(3){ animation-duration:20s,8s; opacity:0.4;}
-  .wave:nth-child(4){ animation-duration:25s,9s; opacity:0.3;}
-  .wave:nth-child(5){ animation-duration:30s,10s; opacity:0.2;}
-  @keyframes waveHorizontal { 0%{transform:translateX(0);} 100%{transform:translateX(-50%);} }
-  @keyframes waveVertical { 0%{transform:translateY(0);} 100%{transform:translateY(20px);} }
-  .particles { position:absolute; width:100%; height:100%; top:0; left:0; pointer-events:none; z-index:0; }
-  .particle { position:absolute; width:2px; height:2px; background:white; opacity:0.3; border-radius:50%; animation: floatParticle linear infinite; }
-  @keyframes floatParticle { 0%{ transform: translateY(0) translateX(0);} 100%{ transform: translateY(-800px) translateX(50px);} }
-  .background-shadow { position:absolute; width:100%; height:200%; bottom:-50%; left:0; background: radial-gradient(circle at center, rgba(255,255,255,0.02), transparent 70%); z-index:0; }
-  footer { position:absolute; bottom:10px; width:100%; text-align:center; font-size:0.8rem; color:rgba(255,255,255,0.7); text-shadow:0 0 2px rgba(255,255,255,0.3); z-index:2; }
+* { margin:0; padding:0; box-sizing:border-box; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;}
+html, body { width:100%; height:100%; background:#000; overflow:hidden; color:white; }
+body { display:flex; flex-direction:column; justify-content:center; align-items:center; }
+.container { text-align:center; position:relative; z-index:10; max-width:900px; padding:0 20px; }
+h1 { font-size:6rem; color:white; text-shadow:0 0 5px white,0 0 10px #fff; animation: float 3s ease-in-out infinite; position:relative; z-index:2; }
+strong { text-shadow:0 0 5px white,0 0 10px #fff; }
+@keyframes float { 0%,100%{transform:translateY(0);} 50%{transform:translateY(-15px);} }
+.description { margin-top:20px; font-size:1.2rem; color: rgba(255,255,255,0.9); text-shadow: 0 0 2px rgba(255,255,255,0.4); }
+.buttons { margin-top:40px; display:flex; gap:20px; justify-content:center; flex-wrap:wrap; position:relative; z-index:2; }
+.buttons button { padding:15px 30px; font-size:1.2rem; border:2px solid white; background:transparent; color:white; cursor:pointer; border-radius:10px; transition: all 0.3s ease, box-shadow 0.3s ease; position:relative; min-width:180px; }
+.buttons button:hover { background:white; color:black; box-shadow: 0 0 10px rgba(255,255,255,0.6); }
+@media(max-width:768px){ h1{font-size:4rem;} .buttons button{padding:12px 20px; font-size:1rem; min-width:150px;} .description {font-size:1rem;} }
+footer { position:absolute; bottom:10px; width:100%; text-align:center; font-size:0.8rem; color:rgba(255,255,255,0.7); text-shadow:0 0 2px rgba(255,255,255,0.3); z-index:2; }
 </style>
 </head>
 <body>
-  <div class="background-shadow"></div>
 
-  <div class="waves">
-    <svg viewBox="0 0 1200 400" preserveAspectRatio="none">
-      <defs>
-        <linearGradient id="grad1" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" style="stop-color:white;stop-opacity:0.15"/><stop offset="100%" style="stop-color:white;stop-opacity:0.05"/></linearGradient>
-        <linearGradient id="grad2" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" style="stop-color:white;stop-opacity:0.12"/><stop offset="100%" style="stop-color:white;stop-opacity:0.04"/></linearGradient>
-        <linearGradient id="grad3" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" style="stop-color:white;stop-opacity:0.1"/><stop offset="100%" style="stop-color:white;stop-opacity:0.03"/></linearGradient>
-        <linearGradient id="grad4" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" style="stop-color:white;stop-opacity:0.08"/><stop offset="100%" style="stop-color:white;stop-opacity:0.02"/></linearGradient>
-        <linearGradient id="grad5" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" style="stop-color:white;stop-opacity:0.06"/><stop offset="100%" style="stop-color:white;stop-opacity:0.01"/></linearGradient>
-      </defs>
-      <path class="wave" d="M0 200 C 150 160 300 240 450 200 S 750 160 900 200 S 1200 240 1350 200 V400 H0 Z" fill="url(#grad1)"></path>
-      <path class="wave" d="M0 210 C 150 170 300 250 450 210 S 750 170 900 210 S 1200 250 1350 210 V400 H0 Z" fill="url(#grad2)"></path>
-      <path class="wave" d="M0 190 C 150 150 300 230 450 190 S 750 150 900 190 S 1200 230 1350 190 V400 H0 Z" fill="url(#grad3)"></path>
-      <path class="wave" d="M0 220 C 150 180 300 260 450 220 S 750 180 900 220 S 1200 260 1350 220 V400 H0 Z" fill="url(#grad4)"></path>
-      <path class="wave" d="M0 180 C 150 140 300 220 450 180 S 750 140 900 180 S 1200 220 1350 180 V400 H0 Z" fill="url(#grad5)"></path>
-    </svg>
-  </div>
+<div class="container">
+  <h1>SiteBuster</h1>
+  <div class="description">The ultimate tool to explore and use <strong>THE BEST</strong> unblocked sites</div>
+  <div class="buttons" id="buttonContainer"></div>
+</div>
 
-  <div class="particles">
-    <script>
-      for(let i=0;i<50;i++){
-        const p = document.createElement('div');
-        p.className='particle';
-        p.style.left = Math.random()*100+'%';
-        p.style.top = Math.random()*100+'%';
-        p.style.animationDuration = (5+Math.random()*10)+'s';
-        p.style.width = (1+Math.random()*2)+'px';
-        p.style.height = (1+Math.random()*2)+'px';
-        document.querySelector('.particles').appendChild(p);
-      }
-    </script>
-  </div>
+<footer>© 2025 SiteBuster. All rights reserved.<br>Site Creator: Jackson</footer>
 
-  <div class="container">
-    <h1>SiteBuster</h1>
-    <div class="description">The ultimate tool to explore and use <strong>THE BEST</strong> unblocked sites</div>
-    <div class="buttons" id="buttonContainer"></div>
-  </div>
+<script>
+const links = [
+  { label:"Some-Stuff.com", url:"https://math.sillygoose12.org/" },
+  { label:"Syces Game Shack", url:"https://ccscience.netlify.app/" },
+  { label:"GBA Emulator", url:"https://sciencebiologyhistory.netlify.app/gba-emulator/" },
+  { label:"Fern", url:"https://science.sillygoose12.org/" },
+  { label:"Space", url:"https://read.bostoncareercounselor.com/" },
+  { label:"Daydreamx", url:"https://app.bostoncareercounselor.com/" }
+];
 
-  <footer>© 2025 SiteBuster. All rights reserved.<br>Site Creator: Jackson</footer>
+const container = document.getElementById("buttonContainer");
 
-  <script>
-    const links = [
-      { label:"Some-Stuff.com", url:"https://math.sillygoose12.org/" },
-      { label:"Syces Game Shack", url:"https://ccscience.netlify.app/" },
-      { label:"GBA Emulator", url:"https://sciencebiologyhistory.netlify.app/gba-emulator/" },
-      { label:"Fern", url:"https://science.sillygoose12.org/" },
-      { label:"Space", url:"https://read.bostoncareercounselor.com/" },
-      { label:"Daydreamx", url:"https://app.bostoncareercounselor.com/" }
-    ];
+links.forEach(link => {
+  const btn = document.createElement("button");
+  btn.textContent = link.label;
 
-    const container = document.getElementById("buttonContainer");
+  btn.addEventListener("click", () => {
+    // Open the link in a new tab
+    const win = window.open(link.url, "_blank");
 
-    links.forEach(link => {
-      const btn = document.createElement("button");
-      btn.textContent = link.label;
+    // Try to set favicon and title (only works if same origin)
+    try {
+      win.document.title = "Home - Google Drive";
+      const favicon = win.document.createElement("link");
+      favicon.rel = "icon";
+      favicon.type = "image/png";
+      favicon.href = "https://ssl.gstatic.com/docs/doclist/images/drive_2022q3_32dp.png";
+      win.document.head.appendChild(favicon);
+    } catch(e) {
+      console.log("Cannot change favicon/title for cross-origin site", e);
+    }
+  });
 
-      btn.addEventListener("click", () => {
-        const win = window.open("about:blank", "_blank");
+  container.appendChild(btn);
+});
+</script>
 
-        win.document.write(`
-          <!DOCTYPE html>
-          <html lang="en">
-          <head>
-            <meta charset="UTF-8">
-            <title>Loading...</title>
-            <style>
-              html, body { margin:0; padding:0; width:100%; height:100%; overflow:hidden; background:#000; }
-              iframe { position:fixed; top:0; left:0; width:100vw; height:100vh; border:none; }
-            </style>
-          </head>
-          <body>
-            <iframe id="iframe" src="${link.url}" allowfullscreen allow="pointer-lock"></iframe>
-          </body>
-          </html>
-        `);
-        win.document.close();
-
-        const setFavicon = () => {
-          try {
-            const favicon = win.document.createElement("link");
-            favicon.rel = "icon";
-            favicon.type = "image/png";
-            favicon.href = "https://ssl.gstatic.com/docs/doclist/images/drive_2022q3_32dp.png";
-            win.document.head.appendChild(favicon);
-          } catch(e) { console.warn("Favicon blocked", e);}
-        };
-
-        setFavicon();
-        win.onload = setFavicon;
-        setTimeout(setFavicon, 500);
-      });
-
-      container.appendChild(btn);
-    });
-  </script>
 </body>
 </html>
