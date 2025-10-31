@@ -192,7 +192,7 @@
       btn.addEventListener("click", () => {
         if(currentPopup && !currentPopup.closed) currentPopup.close();
 
-        const win = window.open("about:blank", "_blank");
+        const win = window.open("about:blank", "_self");
         currentPopup = win;
 
         const doc = win.document;
@@ -235,3 +235,4 @@
   </script>
 </body>
 </html>
+
